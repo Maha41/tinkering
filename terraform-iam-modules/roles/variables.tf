@@ -16,96 +16,77 @@ variable "mfa_age" {
   default     = 86400
 }
 
-# Admin
-variable "create_admin_role" {
-  description = "Whether to create admin role"
-  type        = bool
-  default     = false
-}
-
-variable "admin_role_name" {
-  description = "IAM role with admin access"
-  type        = string
-  default     = "admin"
-}
-
-variable "admin_role_path" {
-  description = "Path of admin IAM role"
-  type        = string
-  default     = "/"
-}
-
-variable "admin_role_requires_mfa" {
-  description = "Whether admin role requires MFA"
-  type        = bool
-  default     = true
-}
-
-variable "admin_role_policy_arns" {
-  description = "List of policy ARNs to use for admin role"
-  type        = list(string)
-  default     = ["arn:aws:iam::aws:policy/AdministratorAccess"]
-}
-
-variable "admin_role_permissions_boundary_arn" {
-  description = "Permissions boundary ARN to use for admin role"
-  type        = string
-  default     = ""
-}
-
-variable "admin_role_tags" {
-  description = "A map of tags to add to admin role resource."
-  type        = map(string)
-  default     = {}
-}
-
-
-
-# Readonly
-variable "create_readonly_role" {
-  description = "Whether to create readonly role"
-  type        = bool
-  default     = false
-}
-
-variable "readonly_role_name" {
-  description = "IAM role with readonly access"
-  type        = string
-  default     = "readonly"
-}
-
-variable "readonly_role_path" {
-  description = "Path of readonly IAM role"
-  type        = string
-  default     = "/"
-}
-
-variable "readonly_role_requires_mfa" {
-  description = "Whether readonly role requires MFA"
-  type        = bool
-  default     = true
-}
-
-variable "readonly_role_policy_arns" {
-  description = "List of policy ARNs to use for readonly role"
-  type        = list(string)
-  default     = ["arn:aws:iam::aws:policy/ReadOnlyAccess"]
-}
-
-variable "readonly_role_permissions_boundary_arn" {
-  description = "Permissions boundary ARN to use for readonly role"
-  type        = string
-  default     = ""
-}
-
-variable "readonly_role_tags" {
-  description = "A map of tags to add to readonly role resource."
-  type        = map(string)
-  default     = {}
-}
-
 variable "max_session_duration" {
   description = "Maximum CLI/API session duration in seconds between 3600 and 43200"
   type        = number
   default     = 3600
+}
+
+variable "create_role" {
+  description = "Whether to create a role"
+  type        = bool
+  default     = false
+}
+
+variable "role_name" {
+  description = "IAM role name"
+  type        = string
+  default     = ""
+}
+
+variable "role_path" {
+  description = "Path of IAM role"
+  type        = string
+  default     = "/"
+}
+
+variable "role_requires_mfa" {
+  description = "Whether role requires MFA"
+  type        = bool
+  default     = true
+}
+
+variable "role_permissions_boundary_arn" {
+  description = "Permissions boundary ARN to use for IAM role"
+  type        = string
+  default     = ""
+}
+
+variable "tags" {
+  description = "A map of tags to add to IAM role resources"
+  type        = map(string)
+  default     = {}
+}
+
+variable "custom_role_policy_arns" {
+  description = "List of ARNs of IAM policies to attach to IAM role"
+  type        = list(string)
+  default     = []
+}
+
+# Pre-defined policies
+variable "admin_role_policy_arn" {
+  description = "Policy ARN to use for admin role"
+  type        = string
+  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
+
+variable "readonly_role_policy_arn" {
+  description = "Policy ARN to use for readonly role"
+  type        = string
+  default     = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
+
+variable "attach_admin_policy" {
+  description = "Whether to attach an admin policy to a role"
+  type        = bool
+  default     = false
+}
+
+
+variable "attach_readonly_policy" {
+  description = "Whether to attach a readonly policy to a role"
+  type        = bool
+  default     = false
 }
